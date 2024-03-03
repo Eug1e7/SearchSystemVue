@@ -14,20 +14,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SearchComponent from "./components/SearchComponent.vue";
-import ResponseComponent from "./components/SearchResultComponent.vue";
-
 const searchResult = ref("");
 
-// 検索が完了したときに結果を設定
-const handleSearchComplete = (result: string) => {
-    searchResult.value = result;
-};
-
-// 戻るイベントが発火したときに呼ばれるメソッド
-const handleGoBack = () => {
-    // 検索結果をクリアしてSearchComponentを再表示
-    searchResult.value = "";
-};
 </script>
 
 <style>

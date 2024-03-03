@@ -12,5 +12,8 @@
     },
     "noEmit": false,
     "moduleResolution": "node",
+    "outDir": "./dist/types", // 型定義ファイルの出力先ディレクトリを指定
+    "declaration": true, // 型定義ファイルの生成を有効にする
+    "declarationMap": true // ソースマップの生成を有効にする（オプション）
   }
 }
