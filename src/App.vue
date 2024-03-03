@@ -1,3 +1,4 @@
+<!-- App.vue -->
 <template>
     <div class="app-container">
         <header>
@@ -9,21 +10,28 @@
         <main>
             <!-- 検索結果がない場合はSearchComponentを表示 -->
             <SearchComponent @search-complete="handleSearchComplete" v-if="!searchResult" />
-            <!-- 検索結果がある場合はResponseComponentを表示 -->
-            <ResponseComponent :modelValue="searchResult" v-else />
+            <!-- 検索結果がある場合はResponseComponentを表示し、goBackイベントをリッスン -->
+            <ResponseComponent :modelValue="searchResult" @goBack="handleGoBack" v-else />
         </main>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import SearchComponent from './components/SearchComponent.vue';
-import ResponseComponent from './components/ResponseComponent.vue';
+import { ref } from "vue";
+import SearchComponent from "./components/SearchComponent.vue";
+import ResponseComponent from "./components/ResponseComponent.vue";
 
-const searchResult = ref('');
+const searchResult = ref("");
 
+// 検索が完了したときに結果を設定
 const handleSearchComplete = (result) => {
     searchResult.value = result;
+};
+
+// 戻るイベントが発火したときに呼ばれるメソッド
+const handleGoBack = () => {
+    // 検索結果をクリアしてSearchComponentを再表示
+    searchResult.value = "";
 };
 </script>
 

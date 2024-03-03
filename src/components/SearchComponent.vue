@@ -1,6 +1,6 @@
+<!-- SearchComponent.vue -->
 <template>
     <div class="container">
-        <!-- <input>から<textarea>に変更し、rows属性を設定して最小の表示行数を指定 -->
         <textarea v-model="searchWord" v-if="isSearched" placeholder="検索ワードを入力" class="search-input" rows="1"></textarea>
         <button class="search-button" v-if="isSearched" @click="submitSearch">検索</button>
         <!-- APIからのレスポンスを表示 -->
@@ -70,7 +70,6 @@ export default {
 </script>
 
 <style scoped>
-/* 既存のスタイル */
 .container {
     display: flex;
     justify-content: center;
@@ -79,10 +78,10 @@ export default {
 }
 
 .search-input {
-    width: 300px; /* 幅は固定 */
-    min-height: 40px; /* 最小の高さ */
-    resize: none; /* ユーザーによるリサイズを無効化 */
-    overflow-y: hidden; /* 縦方向のスクロールバーを非表示に */
+    width: 300px;
+    min-height: 40px;
+    resize: none;
+    overflow-y: hidden;
 }
 
 .search-button {
@@ -97,8 +96,8 @@ export default {
     transition: 0.3s;
 }
 
-/* 追加するスタイル */
+/* 改行と空白を保持する */
 .search-result {
-    white-space: pre-wrap; /* 改行と空白を保持する */
+    white-space: pre-wrap; 
 }
 </style>
