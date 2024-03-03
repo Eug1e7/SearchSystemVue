@@ -19,7 +19,7 @@ import ResponseComponent from "./components/SearchResultComponent.vue";
 const searchResult = ref("");
 
 // 検索が完了したときに結果を設定
-const handleSearchComplete = (result) => {
+const handleSearchComplete = (result: string) => {
     searchResult.value = result;
 };
 
