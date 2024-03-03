@@ -1,9 +1,9 @@
 // router/index.ts
 import { createRouter, createWebHistory } from "vue-router";
-import SearchComponent from "../src/components/SearchComponent.vue";
-import ResponseComponent from "../src/components/ResponseComponent.vue";
-import SearchHistoryComponent from "../src/components/SearchHistoryComponent.vue";
-import KeywordSearchComponent from "../src/components/KeywordSearchComponent.vue";
+import SearchComponent from "../components/SearchComponent.vue";
+import ResponseComponent from "../components/ResponseComponent.vue";
+import SearchHistoryComponent from "../components/SearchHistoryComponent.vue";
+import KeywordSearchComponent from "../components/KeywordSearchComponent.vue";
 
 const router = createRouter({
     history: createWebHistory(),
