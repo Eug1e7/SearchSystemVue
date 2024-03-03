@@ -1,15 +1,12 @@
 <!-- ResponseComponent.vue -->
 <template>
     <div class="container">
-        <input :value="modelValue" placeholder="検索結果" class="response-input" readonly />
+        <textarea class="response-input" :value="modelValue" placeholder="検索結果" readonly></textarea>
     </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {};
-    },
     props: {
         modelValue: String,
     },
@@ -27,6 +24,7 @@ export default {
 .response-input {
     width: 500px;
     height: 700px;
-    white-space: pre-wrap; /* 元の空白と改行を保持する */
+    resize: none; /* ユーザーによるリサイズを無効化 */
 }
 </style>
+

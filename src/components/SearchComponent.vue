@@ -2,6 +2,8 @@
     <div class="container">
         <input v-model="searchWord" v-if="isSearched" placeholder="検索ワードを入力" class="search-input" />
         <button class="search-button" v-if="isSearched" @click="submitSearch">検索</button>
+        <!-- APIからのレスポンスを表示 -->
+        <div class="search-result">{{ searchResult }}</div>
     </div>
 </template>
 
@@ -29,12 +31,20 @@ export default {
                 // axiosを使用してAPIにPOSTリクエストを送信
                 const response = await axios.post("/api/search", { word: this.searchWord });
                 console.log(response.data);
-                this.searchResult = response.data; // 検索結果を保存
-                this.$emit("search-complete", this.searchResult); // 親コンポーネントに検索結果を送信
-                toast.success("検索が成功しました");
+                // 検索結果をそのままsearchResultに格納
+                this.searchResult = response.data;
+                // search-completeイベントを発火
+                this.$emit("search-complete", this.searchResult);
+                // toast.successを呼び出す際に位置を指定
+                toast.success("検索が成功しました", {
+                    position: "top",
+                });
             } catch (error) {
                 console.error(error);
-                toast.error("検索に失敗しました");
+                // toast.errorも同様に位置を指定
+                toast.error("検索に失敗しました", {
+                    position: "top",
+                });
             }
         },
     },
@@ -42,6 +52,7 @@ export default {
 </script>
 
 <style scoped>
+/* 既存のスタイル */
 .container {
     display: flex;
     justify-content: center;
@@ -55,6 +66,19 @@ export default {
 }
 
 .search-button {
-    /* ボタンのスタイルをここに追加します */
+    width: 100px;
+    height: 40px;
+    margin-left: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* 追加するスタイル */
+.search-result {
+    white-space: pre-wrap; /* 改行と空白を保持する */
 }
 </style>
