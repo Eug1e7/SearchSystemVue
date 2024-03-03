@@ -37,8 +37,8 @@ export default {
             this.$nextTick(() => {
                 const textarea = this.$el.querySelector(".search-input");
                 if (textarea) {
-                    textarea.style.height = "auto"; // 高さをリセット
-                    textarea.style.height = textarea.scrollHeight + "px"; // 新しい高さを設定
+                    textarea.style.height = "auto";
+                    textarea.style.height = textarea.scrollHeight + "px";
                 }
             });
         },
@@ -53,13 +53,11 @@ export default {
                 this.searchResult = response.data;
                 // search-completeイベントを発火
                 this.$emit("search-complete", this.searchResult);
-                // toast.successを呼び出す際に位置を指定
                 toast.success("検索が成功しました", {
                     position: "top",
                 });
             } catch (error) {
                 console.error(error);
-                // toast.errorも同様に位置を指定
                 toast.error("検索に失敗しました", {
                     position: "top",
                 });
@@ -96,7 +94,6 @@ export default {
     transition: 0.3s;
 }
 
-/* 改行と空白を保持する */
 .search-result {
     white-space: pre-wrap; 
 }
