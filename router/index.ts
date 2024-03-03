@@ -1,3 +1,4 @@
+// router/index.ts
 import { createRouter, createWebHistory } from "vue-router";
 import SearchComponent from "../components/SearchComponent.vue";
 import ResponseComponent from "../components/ResponseComponent.vue";
