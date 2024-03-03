@@ -1,9 +1,11 @@
+<!-- SearchResultComponent.vue -->
 <template>
     <div>
         <div v-if="loading">読み込み中...</div>
         <div v-else-if="error">エラーが発生しました: {{ error }}</div>
         <div v-else>
             <textarea ref="responseInput" class="response-input" :value="results" placeholder="検索結果" readonly @input="adjustHeight"></textarea>
+            <button @click="goBack" class="back-button">戻る</button>
         </div>
     </div>
 </template>
@@ -31,6 +33,7 @@ export default {
         await this.fetchResults();
     },
     methods: {
+        // APIから検索結果を取得
         async fetchResults() {
             const searchWord = sessionStorage.getItem("searchWord");
             if (!searchWord) {
@@ -48,11 +51,16 @@ export default {
                 this.loading = false;
             }
         },
+        // テキストエリアの高さを調整
         adjustHeight() {
             const textarea = this.$refs.responseInput;
             if (!textarea) return;
             textarea.style.height = "auto";
             textarea.style.height = textarea.scrollHeight + "px";
+        },
+        goBack() {
+            // ユーザーを前のページに戻す
+            this.$router.go(-1);
         },
     },
 };
@@ -70,7 +78,30 @@ export default {
 
 @media (max-width: 600px) {
     .response-input {
-        min-width: 50px; /* 小さい画面での最小幅を調整 */
+        min-width: 50px;
     }
+}
+
+.back-button {
+    padding: 10px 20px; /* ボタンの内側の余白 */
+    background-color: #007bff; /* ボタンの背景色 */
+    color: white; /* ボタンのテキスト色 */
+    border: none; /* 枠線を非表示に */
+    border-radius: 5px; /* ボタンの角を丸く */
+    cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+    transition: background-color 0.3s; /* 背景色の変更を滑らかに */
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+}
+
+.back-button:active {
+    background-color: #004080; /* クリック時の背景色 */
+    outline: none; /* クリック時の枠線を非表示に */
+}
+
+.back-button:focus {
+    outline: none; /* フォーカス時の枠線を非表示に */
 }
 </style>
