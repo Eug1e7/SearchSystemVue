@@ -6,10 +6,7 @@
         </header>
 
         <main>
-            <!-- 検索結果がない場合はSearchComponentを表示 -->
-            <SearchComponent @search-complete="handleSearchComplete" v-if="!searchResult" />
-            <!-- 検索結果がある場合はResponseComponentを表示し、goBackイベントをリッスン -->
-            <ResponseComponent :modelValue="searchResult" @goBack="handleGoBack" v-else />
+            <router-view></router-view>
         </main>
     </div>
 </template>
