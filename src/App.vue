@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SearchComponent from "./components/SearchComponent.vue";
-import ResponseComponent from "./components/ResponseComponent.vue";
+import ResponseComponent from "./components/SearchResultComponent.vue";
 
 const searchResult = ref("");
 

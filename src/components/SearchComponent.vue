@@ -13,7 +13,7 @@
 <script>
 import axios from "axios";
 import { useToast } from "vue-toastify";
-import ResponseComponent from "./ResponseComponent.vue";
+import ResponseComponent from "./SearchResultComponent.vue";
 
 export default {
     components: {
@@ -50,17 +50,15 @@ export default {
                 }
             });
         },
+        // SearchComponent.vue の submitSearch メソッド
         async submitSearch() {
             const toast = useToast();
             try {
-                this.isSearched = false;
-                // axiosを使用してAPIにPOSTリクエストを送信
-                const response = await axios.post("/api/search", { word: this.searchWord });
-                console.log(response.data);
-                // 検索結果をそのままsearchResultに格納
-                this.searchResult = response.data;
-                // search-completeイベントを発火
-                this.$emit("search-complete", this.searchResult);
+                // 検索語をセッションストレージに保存
+                sessionStorage.setItem("searchWord", this.searchWord);
+
+                // 検索結果ページへ遷移
+                this.$router.push({ name: "search-result" });
                 toast.success("検索が成功しました", {
                     position: "top",
                 });
