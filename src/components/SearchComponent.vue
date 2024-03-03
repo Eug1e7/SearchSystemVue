@@ -3,6 +3,8 @@
     <div class="container">
         <textarea v-model="searchWord" v-if="isSearched" placeholder="検索ワードを入力" class="search-input" rows="1"></textarea>
         <button class="search-button" v-if="isSearched" @click="submitSearch">検索</button>
+        <button @click="goToHistory">検索履歴を表示</button>
+        <button @click="goToKeywordSearch">キーワード検索</button>
         <!-- APIからのレスポンスを表示 -->
         <div class="search-result">{{ searchResult }}</div>
     </div>
@@ -33,6 +35,12 @@ export default {
         },
     },
     methods: {
+        goToHistory() {
+            this.$router.push("/history");
+        },
+        goToKeywordSearch() {
+            this.$router.push("/keyword-search");
+        },
         adjustTextareaHeight() {
             this.$nextTick(() => {
                 const textarea = this.$el.querySelector(".search-input");
@@ -95,6 +103,6 @@ export default {
 }
 
 .search-result {
-    white-space: pre-wrap; 
+    white-space: pre-wrap;
 }
 </style>

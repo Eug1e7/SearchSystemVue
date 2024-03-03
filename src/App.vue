@@ -2,9 +2,7 @@
 <template>
     <div class="app-container">
         <header>
-            <div class="wrapper">
-                <HelloWorld msg="何でも聞いてね！" />
-            </div>
+            <!-- ヘッダーのタイトルを追加 -->
         </header>
 
         <main>
