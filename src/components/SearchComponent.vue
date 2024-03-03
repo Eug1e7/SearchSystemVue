@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <input v-model="searchWord" v-if="isSearched" placeholder="検索ワードを入力" class="search-input" />
+        <!-- <input>から<textarea>に変更し、rows属性を設定して最小の表示行数を指定 -->
+        <textarea v-model="searchWord" v-if="isSearched" placeholder="検索ワードを入力" class="search-input" rows="1"></textarea>
         <button class="search-button" v-if="isSearched" @click="submitSearch">検索</button>
         <!-- APIからのレスポンスを表示 -->
         <div class="search-result">{{ searchResult }}</div>
@@ -23,7 +24,24 @@ export default {
             isSearched: true,
         };
     },
+    mounted() {
+        this.adjustTextareaHeight();
+    },
+    watch: {
+        searchWord() {
+            this.adjustTextareaHeight();
+        },
+    },
     methods: {
+        adjustTextareaHeight() {
+            this.$nextTick(() => {
+                const textarea = this.$el.querySelector(".search-input");
+                if (textarea) {
+                    textarea.style.height = "auto"; // 高さをリセット
+                    textarea.style.height = textarea.scrollHeight + "px"; // 新しい高さを設定
+                }
+            });
+        },
         async submitSearch() {
             const toast = useToast();
             try {
@@ -61,8 +79,10 @@ export default {
 }
 
 .search-input {
-    width: 300px;
-    height: 40px;
+    width: 300px; /* 幅は固定 */
+    min-height: 40px; /* 最小の高さ */
+    resize: none; /* ユーザーによるリサイズを無効化 */
+    overflow-y: hidden; /* 縦方向のスクロールバーを非表示に */
 }
 
 .search-button {
