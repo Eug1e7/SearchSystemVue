@@ -1,9 +1,9 @@
 <!-- KeywordSearchComponent.vue -->
 <template>
     <div class="keyword-search-container">
-        <input v-model="keyword" placeholder="キーワードを入力" />
-        <button @click="searchWords">検索</button>
-        <div v-if="searchResults.length">
+        <input v-model="keyword" placeholder="キーワードを入力" class="keyword-input" />
+        <button @click="searchWords" class="search-button">検索</button>
+        <div v-if="searchResults.length" class="results-container">
             <ul>
                 <li v-for="(result, index) in searchResults" :key="index">{{ result }}</li>
             </ul>
@@ -46,29 +46,67 @@ export default {
 
 <style scoped>
 .keyword-search-container {
-    /* コンテナーのスタイル */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.keyword-input,
+.search-button,
+.back-button {
+    width: 80%;
+    max-width: 500px;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.keyword-input {
+    flex-grow: 1;
+}
+
+.search-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #357abd;
 }
 
 .back-button {
-    padding: 10px 20px; /* ボタンの内側の余白 */
-    background-color: #007bff; /* ボタンの背景色 */
-    color: white; /* ボタンのテキスト色 */
-    border: none; /* 枠線を非表示に */
-    border-radius: 5px; /* ボタンの角を丸く */
-    cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
-    transition: background-color 0.3s; /* 背景色の変更を滑らかに */
+    background-color: #50e3c2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .back-button:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
+    background-color: #3cad9f;
 }
 
-.back-button:active {
-    background-color: #004080; /* クリック時の背景色 */
-    outline: none; /* クリック時の枠線を非表示に */
+.results-container {
+    width: 80%;
+    max-width: 500px;
+    margin-top: 20px;
 }
 
-.back-button:focus {
-    outline: none; /* フォーカス時の枠線を非表示に */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
 }
 </style>

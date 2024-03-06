@@ -2,9 +2,9 @@
 <template>
     <div>
         <div v-if="loading">読み込み中...</div>
-        <div v-else-if="error">エラーが発生しました: {{ error }}</div>
         <div v-else>
-            <textarea ref="responseInput" class="response-input" :value="results" placeholder="検索結果" readonly @input="adjustHeight"></textarea>
+            <div v-if="error">エラーが発生しました: {{ error }}</div>
+            <textarea v-else ref="responseInput" class="response-input" :value="results" placeholder="検索結果" readonly @input="adjustHeight"></textarea>
             <button @click="goBack" class="back-button">戻る</button>
         </div>
     </div>
@@ -22,7 +22,6 @@ export default {
         };
     },
     watch: {
-        // resultsデータプロパティの変更を監視
         results() {
             this.$nextTick(() => {
                 this.adjustHeight();

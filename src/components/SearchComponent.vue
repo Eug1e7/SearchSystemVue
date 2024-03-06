@@ -3,16 +3,12 @@
     <div class="container">
         <textarea v-model="searchWord" v-if="isSearched" placeholder="検索ワードを入力" class="search-input" rows="1"></textarea>
         <button class="search-button" v-if="isSearched" @click="submitSearch">検索</button>
-        <button @click="goToHistory">検索履歴を表示</button>
-        <button @click="goToKeywordSearch">キーワード検索</button>
-        <!-- APIからのレスポンスを表示 -->
-        <div class="search-result">{{ searchResult }}</div>
+        <button class="history-button" @click="goToHistory">検索履歴を表示</button>
+        <button class="keyword-button" @click="goToKeywordSearch">キーワード検索</button>
     </div>
 </template>
 
 <script>
-import axios from "axios";
-import { useToast } from "vue-toastify";
 import ResponseComponent from "./SearchResultComponent.vue";
 
 export default {
@@ -22,7 +18,6 @@ export default {
     data() {
         return {
             searchWord: "",
-            searchResult: "",
             isSearched: true,
         };
     },
@@ -50,23 +45,17 @@ export default {
                 }
             });
         },
-        // SearchComponent.vue の submitSearch メソッド
+        // SearchComponent.vue の submitSearch メソッド内
         async submitSearch() {
-            const toast = useToast();
             try {
                 // 検索語をセッションストレージに保存
                 sessionStorage.setItem("searchWord", this.searchWord);
-
                 // 検索結果ページへ遷移
                 this.$router.push({ name: "search-result" });
-                toast.success("検索が成功しました", {
-                    position: "top",
-                });
             } catch (error) {
                 console.error(error);
-                toast.error("検索に失敗しました", {
-                    position: "top",
-                });
+                // エラー通知を表示。
+                toast.error("検索に失敗しました");
             }
         },
     },
@@ -76,31 +65,59 @@ export default {
 <style scoped>
 .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100vh;
+    padding: 20px;
 }
 
 .search-input {
-    width: 300px;
+    width: 80%;
+    max-width: 500px;
     min-height: 40px;
+    margin-bottom: 10px;
     resize: none;
     overflow-y: hidden;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 共通ボタンスタイルの設定 */
+.button-common {
+    width: 80%;
+    max-width: 300px;
+    height: 50px;
+    margin: 5px 0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    box-shadow: none;
 }
 
 .search-button {
-    width: 100px;
-    height: 40px;
-    margin-left: 10px;
-    background-color: #007bff;
+    background-color: #4a90e2;
     color: white;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
 }
 
-.search-result {
-    white-space: pre-wrap;
+.search-button:hover,
+.history-button:hover,
+.keyword-button:hover {
+    opacity: 0.8;
+}
+
+.history-button {
+    background-color: #50e3c2;
+    color: white;
+    border: none;
+}
+
+.keyword-button {
+    background-color: #f5a623;
+    color: white;
+    border: none;
 }
 </style>

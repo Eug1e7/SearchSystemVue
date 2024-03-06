@@ -15,7 +15,13 @@ app.config.globalProperties.$axios = axios;
 app.use(router);
 
 // VueToastifyプラグインを使用するためにapp.use()を呼び出す
-app.use(VueToastify);
+app.use(VueToastify, {
+    // ここでカスタムオプションを設定できます
+    position: "top-right", // トーストを右上に表示
+    timeout: 2000, // トーストを表示する時間は2000ms
+    closeOnClick: true, // クリックでトーストを閉じる
+    pauseOnHover: true, // ホバー時にトーストのタイマーを一時停止する
+});
 
 // アプリケーションをマウント
 app.mount("#app");
