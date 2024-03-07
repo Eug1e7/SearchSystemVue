@@ -1,62 +1,37 @@
 <!-- SearchComponent.vue -->
 <template>
     <div class="container">
-        <textarea v-model="searchWord" v-if="isSearched" placeholder="検索ワードを入力" class="search-input" rows="1"></textarea>
-        <button class="search-button" v-if="isSearched" @click="submitSearch">検索</button>
-        <button class="history-button" @click="goToHistory">検索履歴を表示</button>
-        <button class="keyword-button" @click="goToKeywordSearch">キーワード検索</button>
+        <button v-if="!isSearched" class="button-common search-button" @click="expandSearch">検索開始</button>
+        <textarea v-model="searchWord" v-show="isSearched" placeholder="検索ワードを入力" class="search-input" rows="1"></textarea>
+        <button class="button-common search-button" v-show="isSearched" @click="submitSearch">検索</button>
+        <button class="button-common search-button" v-show="isSearched" @click="submitSearch">キーワード検索</button>
+        <button class="button-common history-button" v-show="isSearched" @click="goToHistory">検索履歴を表示</button>
+        <button class="button-common close-button" v-show="isSearched" @click="closeSearch">閉じる</button>
     </div>
 </template>
 
 <script>
-import ResponseComponent from "./SearchResultComponent.vue";
-
 export default {
-    components: {
-        ResponseComponent,
-    },
     data() {
         return {
             searchWord: "",
-            isSearched: true,
+            isSearched: false,
         };
     },
-    mounted() {
-        this.adjustTextareaHeight();
-    },
-    watch: {
-        searchWord() {
-            this.adjustTextareaHeight();
-        },
-    },
     methods: {
+        expandSearch() {
+            this.isSearched = true;
+        },
+        closeSearch() {
+            this.isSearched = false;
+        },
         goToHistory() {
             this.$router.push("/history");
         },
-        goToKeywordSearch() {
-            this.$router.push("/keyword-search");
-        },
-        adjustTextareaHeight() {
-            this.$nextTick(() => {
-                const textarea = this.$el.querySelector(".search-input");
-                if (textarea) {
-                    textarea.style.height = "auto";
-                    textarea.style.height = textarea.scrollHeight + "px";
-                }
-            });
-        },
-        // SearchComponent.vue の submitSearch メソッド内
-        async submitSearch() {
-            try {
-                // 検索語をセッションストレージに保存
-                sessionStorage.setItem("searchWord", this.searchWord);
-                // 検索結果ページへ遷移
-                this.$router.push({ name: "search-result" });
-            } catch (error) {
-                console.error(error);
-                // エラー通知を表示。
-                toast.error("検索に失敗しました");
-            }
+        submitSearch() {
+            console.log("Searching for:", this.searchWord);
+            // ここに検索処理を実装します。
+            // 例: this.$router.push({ name: "search-result", params: { query: this.searchWord } });
         },
     },
 };
@@ -67,26 +42,23 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
     padding: 20px;
 }
 
 .search-input {
     width: 80%;
     max-width: 500px;
-    min-height: 40px;
-    margin-bottom: 10px;
-    resize: none;
-    overflow-y: hidden;
+    margin: 10px 0;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
-/* 共通ボタンスタイルの設定 */
 .button-common {
     width: 80%;
     max-width: 300px;
-    height: 50px;
+    padding: 10px;
     margin: 5px 0;
     font-weight: bold;
     cursor: pointer;
@@ -94,30 +66,21 @@ export default {
     border-radius: 20px;
     border: none;
     color: white;
-    box-shadow: none;
 }
 
 .search-button {
     background-color: #4a90e2;
-    color: white;
-    border: none;
-}
-
-.search-button:hover,
-.history-button:hover,
-.keyword-button:hover {
-    opacity: 0.8;
 }
 
 .history-button {
     background-color: #50e3c2;
-    color: white;
-    border: none;
 }
 
 .keyword-button {
     background-color: #f5a623;
-    color: white;
-    border: none;
+}
+
+.close-button {
+    background-color: #f44336;
 }
 </style>
