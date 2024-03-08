@@ -2,11 +2,13 @@
 <template>
     <div class="container">
         <button v-if="!isSearched" class="button-common search-button" @click="expandSearch">検索開始</button>
+        <button v-if="!isMaster" class="button-common search-button" @click="expandMaster">管理者用</button>
         <textarea v-model="searchWord" v-show="isSearched" placeholder="検索ワードを入力" class="search-input" rows="1"></textarea>
         <button class="button-common search-button" v-show="isSearched" @click="submitSearch">検索</button>
-        <button class="button-common search-button" v-show="isSearched" @click="submitSearch">キーワード検索</button>
-        <button class="button-common history-button" v-show="isSearched" @click="goToHistory">検索履歴を表示</button>
         <button class="button-common close-button" v-show="isSearched" @click="closeSearch">閉じる</button>
+        <button class="button-common search-button" v-show="isMaster" @click="submitSearch">キーワード検索</button>
+        <button class="button-common history-button" v-show="isMaster" @click="goToHistory">検索履歴を表示</button>
+        <button class="button-common close-button" v-show="isMaster" @click="closeMaster">閉じる</button>
     </div>
 </template>
 
@@ -16,6 +18,7 @@ export default {
         return {
             searchWord: "",
             isSearched: false,
+            isMaster: false,
         };
     },
     methods: {
@@ -24,6 +27,12 @@ export default {
         },
         closeSearch() {
             this.isSearched = false;
+        },
+        expandMaster() {
+            this.isMaster = true;
+        },
+        closeMaster() {
+            this.isMaster = false;
         },
         goToHistory() {
             this.$router.push("/history");
