@@ -1,6 +1,6 @@
 <!-- SearchResultComponent.vue -->
 <template>
-    <div>
+    <div class="search-result-container">
         <div v-if="loading">読み込み中...</div>
         <div v-else>
             <div v-if="error">エラーが発生しました: {{ error }}</div>
@@ -64,6 +64,13 @@ export default {
 </script>
 
 <style>
+.search-result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
 .response-input {
     width: 100%;
     min-width: 100px;
@@ -80,13 +87,13 @@ export default {
 }
 
 .back-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
+    width: 80%;
+    max-width: 500px;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    box-sizing: border-box;
 }
 
 .back-button:hover {
