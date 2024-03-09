@@ -40,7 +40,6 @@ export default {
             }
         },
         goBack() {
-            // ユーザーを前のページに戻す
             this.$router.go(-1);
         },
     },
@@ -49,44 +48,54 @@ export default {
 
 <style scoped>
 .search-history-container {
-    /* コンテナーのスタイル */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
 .loading,
 .error {
-    /* ローディングとエラーメッセージのスタイル */
     color: red;
     text-align: center;
 }
 
 ul {
-    /* リストのスタイル */
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    margin: 0;
 }
 
 li {
-    /* リストアイテムのスタイル */
+    margin: 10px 0;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .back-button {
-    padding: 10px 20px; /* ボタンの内側の余白 */
-    background-color: #007bff; /* ボタンの背景色 */
-    color: white; /* ボタンのテキスト色 */
-    border: none; /* 枠線を非表示に */
-    border-radius: 5px; /* ボタンの角を丸く */
-    cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
-    transition: background-color 0.3s; /* 背景色の変更を滑らかに */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .back-button:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
+    background-color: #0056b3;
 }
 
 .back-button:active {
-    background-color: #004080; /* クリック時の背景色 */
-    outline: none; /* クリック時の枠線を非表示に */
+    background-color: #004080;
+    outline: none;
 }
 
 .back-button:focus {
-    outline: none; /* フォーカス時の枠線を非表示に */
+    outline: none;
 }
 </style>

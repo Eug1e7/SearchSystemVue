@@ -37,7 +37,6 @@ export default {
             }
         },
         goBack() {
-            // ユーザーを前のページに戻す
             this.$router.go(-1);
         },
     },

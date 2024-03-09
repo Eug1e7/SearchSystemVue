@@ -1,13 +1,13 @@
 <!-- SearchComponent.vue -->
 <template>
     <div class="container">
-        <button v-if="!isSearched" class="button-common search-button" @click="expandSearch">検索開始</button>
-        <button v-if="!isMaster" class="button-common search-button" @click="expandMaster">管理者用</button>
+        <button v-if="!isSearched && !isMaster" class="button-common search-button" @click="expandSearch">検索開始</button>
+        <button v-if="!isSearched && !isMaster" class="button-common search-button" @click="expandMaster">管理者用</button>
         <textarea v-model="searchWord" v-show="isSearched" placeholder="検索ワードを入力" class="search-input" rows="1"></textarea>
-        <button class="button-common search-button" v-show="isSearched" @click="submitSearch">検索</button>
+        <button class="button-common submit-button" v-show="isSearched" @click="submitSearch">検索</button>
         <button class="button-common close-button" v-show="isSearched" @click="closeSearch">閉じる</button>
-        <button class="button-common search-button" v-show="isMaster" @click="submitSearch">キーワード検索</button>
-        <button class="button-common history-button" v-show="isMaster" @click="goToHistory">検索履歴を表示</button>
+        <button class="button-common keyword-button" v-show="isMaster" @click="keywordSearch">キーワード検索画面</button>
+        <button class="button-common history-button" v-show="isMaster" @click="goToHistory">検索履歴画面</button>
         <button class="button-common close-button" v-show="isMaster" @click="closeMaster">閉じる</button>
     </div>
 </template>
@@ -34,13 +34,14 @@ export default {
         closeMaster() {
             this.isMaster = false;
         },
+        submitSearch() {
+            this.$router.push({ name: "search-result", params: { query: this.searchWord } });
+        },
+        keywordSearch() {
+            this.$router.push("/keyword-search");
+        },
         goToHistory() {
             this.$router.push("/history");
-        },
-        submitSearch() {
-            console.log("Searching for:", this.searchWord);
-            // ここに検索処理を実装します。
-            // 例: this.$router.push({ name: "search-result", params: { query: this.searchWord } });
         },
     },
 };
@@ -79,6 +80,10 @@ export default {
 
 .search-button {
     background-color: #4a90e2;
+}
+
+.submit-button {
+    background-color: #50e3c2;
 }
 
 .history-button {

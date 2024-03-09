@@ -50,7 +50,6 @@ export default {
                 this.loading = false;
             }
         },
-        // テキストエリアの高さを調整
         adjustHeight() {
             const textarea = this.$refs.responseInput;
             if (!textarea) return;
@@ -58,7 +57,6 @@ export default {
             textarea.style.height = textarea.scrollHeight + "px";
         },
         goBack() {
-            // ユーザーを前のページに戻す
             this.$router.go(-1);
         },
     },
@@ -67,12 +65,12 @@ export default {
 
 <style>
 .response-input {
-    width: 100%; /* 親要素の幅に合わせる */
-    min-width: 100px; /* 最小幅を指定 */
-    max-width: 100%; /* 親要素を超えない最大幅を指定 */
-    height: auto; /* 初期高さは自動 */
-    overflow-y: hidden; /* 縦方向のスクロールバーを隠す */
-    box-sizing: border-box; /* パディングとボーダーを幅に含める */
+    width: 100%;
+    min-width: 100px;
+    max-width: 100%;
+    height: auto;
+    overflow-y: hidden;
+    box-sizing: border-box;
 }
 
 @media (max-width: 600px) {
@@ -82,25 +80,25 @@ export default {
 }
 
 .back-button {
-    padding: 10px 20px; /* ボタンの内側の余白 */
-    background-color: #007bff; /* ボタンの背景色 */
-    color: white; /* ボタンのテキスト色 */
-    border: none; /* 枠線を非表示に */
-    border-radius: 5px; /* ボタンの角を丸く */
-    cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
-    transition: background-color 0.3s; /* 背景色の変更を滑らかに */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .back-button:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
+    background-color: #0056b3;
 }
 
 .back-button:active {
-    background-color: #004080; /* クリック時の背景色 */
-    outline: none; /* クリック時の枠線を非表示に */
+    background-color: #004080;
+    outline: none;
 }
 
 .back-button:focus {
-    outline: none; /* フォーカス時の枠線を非表示に */
+    outline: none;
 }
 </style>
