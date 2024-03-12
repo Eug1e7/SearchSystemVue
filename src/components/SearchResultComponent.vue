@@ -14,6 +14,9 @@
 import axios from "axios";
 
 export default {
+    props: {
+        query: String,
+    },
     data() {
         return {
             loading: false,
@@ -29,20 +32,18 @@ export default {
         },
     },
     async mounted() {
+        if (!this.query) {
+            this.error = "検索語が指定されていません。";
+            return;
+        }
         await this.fetchResults();
     },
     methods: {
         // APIから検索結果を取得
         async fetchResults() {
-            const searchWord = sessionStorage.getItem("searchWord");
-            if (!searchWord) {
-                this.error = "検索語が見つかりません。";
-                return;
-            }
-
             this.loading = true;
             try {
-                const response = await axios.post("/api/search", { word: searchWord });
+                const response = await axios.post("/api/search", { question: this.query });
                 this.results = response.data;
             } catch (e) {
                 this.error = e.toString();

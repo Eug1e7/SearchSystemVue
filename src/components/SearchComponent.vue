@@ -35,7 +35,7 @@ export default {
             this.isMaster = false;
         },
         submitSearch() {
-            this.$router.push({ name: "search-result", params: { query: this.searchWord } });
+            this.$router.push({ name: "search-result", query: { q: this.searchWord } });
         },
         keywordSearch() {
             this.$router.push("/keyword-search");
