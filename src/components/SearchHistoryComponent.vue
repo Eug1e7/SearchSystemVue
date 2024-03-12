@@ -1,10 +1,19 @@
 <!-- SearchHistoryComponent.vue -->
 <template>
+    <div>
+        <input type="date" v-model="startDate" />
+        <input type="date" v-model="endDate" />
+        <button @click="fetchSearchHistory">検索</button>
+    </div>
     <div class="search-history-container">
         <div v-if="loading" class="loading">検索履歴を読み込み中...</div>
         <div v-else-if="error" class="error">検索履歴の取得に失敗しました。</div>
         <ul v-else>
-            <li v-for="(search, index) in searchHistory" :key="index">{{ search }}</li>
+            <!-- 日付を表示するように変更 -->
+            <li v-for="(search, index) in searchHistory" :key="index">
+                <div>{{ search.question }}</div>
+                <div class="date">{{ new Date(search.createdAt).toLocaleDateString() }}</div>
+            </li>
         </ul>
         <button @click="goBack" class="back-button">戻る</button>
     </div>
@@ -19,6 +28,8 @@ export default {
             searchHistory: [],
             loading: false,
             error: null,
+            startDate: '',
+            endDate: '',
         };
     },
     async mounted() {
@@ -30,7 +41,12 @@ export default {
             this.loading = true;
             this.error = null;
             try {
-                const response = await axios.get("/api/searches");
+                const response = await axios.get(`/api/history`, {
+                    params: {
+                        startDate: this.startDate,
+                        endDate: this.endDate
+                    }
+                });
                 this.searchHistory = response.data;
                 this.loading = false;
             } catch (error) {
@@ -52,6 +68,11 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+}
+
+.date {
+    color: #777;
+    font-size: 0.8em;
 }
 
 .loading,
