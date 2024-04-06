@@ -30,7 +30,7 @@ export default {
                 return;
             }
             try {
-                const response = await axios.get(`/api/word?keyword=${encodeURIComponent(this.keyword)}`);
+                const response = await axios.get(`/api/question?keyword=${(this.keyword)}`);
                 this.searchResults = response.data;
             } catch (error) {
                 console.error("キーワード検索に失敗しました。", error);
