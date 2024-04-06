@@ -3,6 +3,13 @@
     <div>
         <input type="date" v-model="startDate" />
         <input type="date" v-model="endDate" />
+        <select v-model="selectedCategory">
+            <option value="">全てのカテゴリー</option>
+            <option value="製品に関する質問">製品に関する質問</option>
+            <option value="価格に関する質問">価格に関する質問</option>
+            <option value="サポートに関する質問">サポートに関する質問</option>
+            <option value="その他">その他</option>
+        </select>
         <button @click="fetchSearchHistory">検索</button>
     </div>
     <div class="search-history-container">
@@ -30,6 +37,7 @@ export default {
             error: null,
             startDate: '',
             endDate: '',
+            selectedCategory: '',
         };
     },
     async mounted() {
@@ -44,7 +52,8 @@ export default {
                 const response = await axios.get(`/api/history`, {
                     params: {
                         startDate: this.startDate,
-                        endDate: this.endDate
+                        endDate: this.endDate,
+                        category: this.selectedCategory,
                     }
                 });
                 this.searchHistory = response.data;
