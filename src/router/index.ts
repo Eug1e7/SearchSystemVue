@@ -4,6 +4,7 @@ import SearchComponent from "../components/SearchComponent.vue";
 import SearchResultComponent from "../components/SearchResultComponent.vue";
 import SearchHistoryComponent from "../components/SearchHistoryComponent.vue";
 import KeywordSearchComponent from "../components/KeywordSearchComponent.vue";
+import DataAnalysisComponent from "../components/DataAnalysisComponent.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -15,8 +16,9 @@ const router = createRouter({
             component: SearchResultComponent,
             props: (route) => ({ query: route.query.q }),
         },
-        { path: "/history", component: SearchHistoryComponent },
         { path: "/keyword-search", component: KeywordSearchComponent },
+        { path: "/history", component: SearchHistoryComponent },
+        { path: "/data-analysis", component: DataAnalysisComponent },
     ],
 });
 

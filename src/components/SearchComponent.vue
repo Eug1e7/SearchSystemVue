@@ -6,6 +6,7 @@
         <textarea v-model="searchWord" v-show="isSearched" placeholder="検索ワードを入力" class="search-input" rows="1"></textarea>
         <button class="button-common submit-button" v-show="isSearched" @click="submitSearch">検索</button>
         <button class="button-common close-button" v-show="isSearched" @click="closeSearch">閉じる</button>
+        <button class="button-common analysis-button" v-show="isMaster" @click="goToAnalysis">データ分析画面</button>
         <button class="button-common keyword-button" v-show="isMaster" @click="keywordSearch">キーワード検索画面</button>
         <button class="button-common history-button" v-show="isMaster" @click="goToHistory">検索履歴画面</button>
         <button class="button-common close-button" v-show="isMaster" @click="closeMaster">閉じる</button>
@@ -36,6 +37,9 @@ export default {
         },
         submitSearch() {
             this.$router.push({ name: "search-result", query: { q: this.searchWord } });
+        },
+        goToAnalysis() {
+            this.$router.push("/data-analysis");
         },
         keywordSearch() {
             this.$router.push("/keyword-search");
@@ -86,12 +90,16 @@ export default {
     background-color: #50e3c2;
 }
 
-.history-button {
-    background-color: #50e3c2;
+.analysis-button {
+    background-color: #9b59b6;
 }
 
 .keyword-button {
     background-color: #f5a623;
+}
+
+.history-button {
+    background-color: #50e3c2;
 }
 
 .close-button {
