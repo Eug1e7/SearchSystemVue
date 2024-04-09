@@ -47,18 +47,23 @@ export default {
             this.isChatbotActive = true;
         },
         submitSearch() {
+            // 検索結果へのナビゲーション
             this.$router.push({ name: "search-result", query: { q: this.searchWord } });
         },
         goToAnalysis() {
+            // データ分析画面へのナビゲーション
             this.$router.push("/data-analysis");
         },
         keywordSearch() {
+            // キーワード検索画面へのナビゲーション
             this.$router.push("/keyword-search");
         },
         goToHistory() {
+            // 検索履歴画面へのナビゲーション
             this.$router.push("/history");
         },
         toggleChatbotMenu() {
+            // チャットボットメニューの表示切替
             this.isChatbotActive = !this.isChatbotActive;
             if (!this.isChatbotActive) {
                 this.isSearched = false;
